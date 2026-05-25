@@ -1,7 +1,9 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import { chatWelcome } from '../data/chatGuide'
 import { useChatStore } from '../stores/chatStore'
+import ChatWelcome from './ChatWelcome'
 
 const statusStyles = {
   idle: 'bg-zinc-300 dark:bg-zinc-600',
@@ -27,7 +29,15 @@ export default function SupportCopilot() {
 
   async function handleSubmit(event) {
     event.preventDefault()
+    if (status === 'streaming' || !question.trim()) return
     await submitQuestion(question)
+  }
+
+  function handleKeyDown(event) {
+    if (event.key !== 'Enter' || event.shiftKey) return
+    event.preventDefault()
+    if (status === 'streaming' || !question.trim()) return
+    event.currentTarget.form?.requestSubmit()
   }
 
   return (
@@ -55,6 +65,12 @@ export default function SupportCopilot() {
       </header>
 
       <div className="flex-1 space-y-4 overflow-y-auto px-4 py-4 lg:px-6">
+        {messages.length === 0 && (
+          <ChatWelcome
+            disabled={status === 'streaming'}
+            onAsk={(prompt) => submitQuestion(prompt)}
+          />
+        )}
         {messages.map((message, index) => (
           <article
             key={index}
@@ -111,13 +127,14 @@ export default function SupportCopilot() {
         onSubmit={handleSubmit}
       >
         <p className="mb-2 hidden text-xs text-zinc-500 dark:text-zinc-400 lg:block">
-          Type your question — or choose an example from the sidebar.
+          {chatWelcome.inputHint}
         </p>
         <div className="mx-auto flex max-w-3xl gap-2">
           <textarea
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
-            placeholder="Ask about refunds, AUTH_403, order status…"
+            onKeyDown={handleKeyDown}
+            placeholder={chatWelcome.placeholder}
             rows={2}
             className="min-h-[48px] flex-1 resize-none rounded-xl border border-zinc-200 bg-white px-3 py-2.5 text-sm text-zinc-900 outline-none placeholder:text-zinc-400 focus:border-brand focus:ring-1 focus:ring-brand/20 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100 dark:placeholder:text-zinc-500"
           />

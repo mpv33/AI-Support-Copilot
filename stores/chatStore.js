@@ -1,14 +1,7 @@
 import { create } from 'zustand'
 import { askCopilot } from '../lib/chatClient'
 
-export const STARTER_MESSAGES = [
-  {
-    role: 'assistant',
-    content:
-      'Hi! Pick a suggested question from the sidebar, or type your own about refunds, errors, or orders.',
-    sources: [],
-  },
-]
+export const STARTER_MESSAGES = []
 
 export const useChatStore = create((set, get) => ({
   messages: STARTER_MESSAGES,

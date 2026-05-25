@@ -4,12 +4,20 @@
 
 Ground support answers in your knowledge base using **hybrid RAG** (embeddings + BM25), **streaming chat**, **safe tool calling**, and **production-style guardrails**. The backend owns every AI decision; the UI is a focused copilot experience at `/chat`.
 
+**Live demo:** [https://ai-support-copilot-three.vercel.app/](https://ai-support-copilot-three.vercel.app/)
+
 <p align="center">
   <strong>Next.js 16</strong> · <strong>React 19</strong> · <strong>Tailwind CSS v4</strong> · <strong>Zustand</strong> · <strong>OpenAI</strong>
 </p>
 
 <p align="center">
-  <a href="http://localhost:3010">Landing</a> ·
+  <a href="https://ai-support-copilot-three.vercel.app/"><strong>Live demo</strong></a> ·
+  <a href="https://ai-support-copilot-three.vercel.app/chat">Chat</a> ·
+  <a href="https://ai-support-copilot-three.vercel.app/skills">Skills map</a>
+</p>
+
+<p align="center">
+  Local: <a href="http://localhost:3010">Landing</a> ·
   <a href="http://localhost:3010/chat">Chat</a> ·
   <a href="http://localhost:3010/skills">Skills map</a>
 </p>
@@ -20,6 +28,7 @@ Ground support answers in your knowledge base using **hybrid RAG** (embeddings +
 
 | | |
 | --- | --- |
+| **Live demo** | [ai-support-copilot-three.vercel.app](https://ai-support-copilot-three.vercel.app/) |
 | **What it is** | Enterprise-style support copilot demo with RAG, agents, and observability |
 | **Who it’s for** | Teams and builders evaluating production-style AI support copilots |
 | **What it is not** | A thin ChatGPT wrapper — retrieval, tools, and trust live on the server |
@@ -31,6 +40,8 @@ Ground support answers in your knowledge base using **hybrid RAG** (embeddings +
 | `/` | Landing — skills used, how it works, link to chat |
 | `/chat` | Live copilot — sidebar with example questions + streaming chat |
 | `/skills` | Full 13-topic Gen AI skills breakdown |
+
+Deployed app: [https://ai-support-copilot-three.vercel.app/](https://ai-support-copilot-three.vercel.app/) · Chat: [https://ai-support-copilot-three.vercel.app/chat](https://ai-support-copilot-three.vercel.app/chat)
 
 ---
 

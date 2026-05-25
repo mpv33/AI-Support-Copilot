@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 
-@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant dark (&:where(.dark, .dark *, [data-theme='dark'], [data-theme='dark'] *));
 
 @theme {
   --color-brand: #10a37f;
@@ -20,7 +20,9 @@
   }
 }
 
-.dark {
+html.dark,
+html[data-theme='dark'] {
+  color-scheme: dark;
   --color-brand-soft: rgb(16 163 127 / 0.15);
 }
 

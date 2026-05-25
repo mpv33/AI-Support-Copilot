@@ -51,7 +51,7 @@ export default function SiteNav() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <ThemeToggle className="hidden sm:inline-flex" />
+          <ThemeToggle />
           <Link
             href="/chat"
             className="hidden rounded-lg bg-brand px-4 py-2 text-sm font-medium text-white no-underline transition hover:bg-brand-dark sm:inline-block"

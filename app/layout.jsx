@@ -1,4 +1,5 @@
 import './globals.css'
+import ThemeProvider from '../components/ThemeProvider'
 import { themeInitScript } from '../lib/theme'
 
 export const metadata = {
@@ -9,10 +10,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
+      <body className="font-sans">
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
-      </head>
-      <body className="font-sans">{children}</body>
+        <ThemeProvider>{children}</ThemeProvider>
+      </body>
     </html>
   )
 }
