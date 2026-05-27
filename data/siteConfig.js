@@ -19,7 +19,9 @@ export const landingOverview = {
     eyebrow: 'RAG-powered AI support',
     title: 'AI Support Copilot',
     tagline:
-      'Search the Help Center before every reply — accurate, cited answers about InterviewPro.info tracks, tools, and your account.',
+      'A RAG-powered help desk that retrieves real Help Center articles before every reply — grounded answers with source citations, live streaming, and clear refusals when confidence is low.',
+    subline:
+      'Frontend, DSA, machine coding, Gen AI, ResumePro, EvalPro, billing, and account support.',
     ctaPrimary: 'Start chatting',
     ctaSecondary: 'Browse Help Center',
     ctaSecondaryHref: '/support',

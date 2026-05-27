@@ -28,11 +28,11 @@ export default function ProductHero() {
             </span>
           </h1>
 
-          <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-zinc-600 dark:text-zinc-400 sm:text-lg">
+          <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-zinc-600 dark:text-zinc-400 sm:text-lg">
             {hero.tagline}
           </p>
 
-          <p className="mt-3 text-sm text-zinc-500">
+          <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-zinc-500">
             Built for{' '}
             <a
               href="https://www.interviewpro.info/"
@@ -43,7 +43,7 @@ export default function ProductHero() {
               {interviewProBrand.name}
             </a>
             <span className="mx-2 text-zinc-300">·</span>
-            <span className="text-zinc-400">{interviewProBrand.tagline}</span>
+            <span className="text-zinc-400">{hero.subline}</span>
           </p>
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
