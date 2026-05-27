@@ -3,17 +3,16 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
-import { appNav, productNav } from '../data/siteConfig'
+import { appNav } from '../data/siteConfig'
 import ThemeToggle from './ThemeToggle'
 
 export default function SiteNav() {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
-  const isHome = pathname === '/'
 
   return (
     <header className="sticky top-0 z-50 border-b border-zinc-200/80 bg-white/80 backdrop-blur-md dark:border-zinc-800/80 dark:bg-zinc-950/80">
-      <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
         <Link href="/" className="flex items-center gap-2.5 no-underline" onClick={() => setOpen(false)}>
           <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand text-sm font-bold text-white">
             AI
@@ -38,16 +37,6 @@ export default function SiteNav() {
               </Link>
             )
           })}
-          {isHome &&
-            productNav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="text-sm text-zinc-600 no-underline transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
-              >
-                {item.label}
-              </Link>
-            ))}
         </nav>
 
         <div className="flex items-center gap-2">
@@ -91,17 +80,6 @@ export default function SiteNav() {
               {item.label}
             </Link>
           ))}
-          {isHome &&
-            productNav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="block py-2 text-sm text-zinc-700 no-underline dark:text-zinc-300"
-                onClick={() => setOpen(false)}
-              >
-                {item.label}
-              </Link>
-            ))}
           <Link
             href="/chat"
             className="mt-2 block rounded-lg bg-brand py-2.5 text-center text-sm font-medium text-white no-underline"

@@ -16,7 +16,7 @@ export async function POST(req) {
   const traceId = crypto.randomUUID()
   const startedAt = performance.now()
 
-  const { question, tenantId = 'acme' } = await req.json()
+  const { question, tenantId = 'interviewpro' } = await req.json()
 
   if (!question || typeof question !== 'string') {
     return Response.json({ error: 'question is required' }, { status: 400 })

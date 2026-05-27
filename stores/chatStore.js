@@ -1,7 +1,6 @@
 import { create } from 'zustand'
 import { askCopilot } from '../lib/chatClient'
-
-export const STARTER_MESSAGES = []
+import { STARTER_MESSAGES, buildHistoryFromMessages } from '../lib/chatHistory'
 
 export const useChatStore = create((set, get) => ({
   messages: STARTER_MESSAGES,
@@ -23,28 +22,31 @@ export const useChatStore = create((set, get) => ({
   applyStreamEvent: (event) =>
     set((state) => {
       const messages = [...state.messages]
-      const last = messages[messages.length - 1]
-      if (!last) return state
+      const idx = messages.length - 1
+      if (idx < 0) return state
+
+      const current = messages[idx]
 
       if (event.type === 'meta') {
-        messages[messages.length - 1] = {
-          ...last,
+        messages[idx] = {
+          ...current,
           meta: {
             traceId: event.traceId,
             retrievalMode: event.retrievalMode,
             contextUsage: event.contextUsage,
+            agentSteps: event.agentSteps,
           },
         }
       }
 
       if (event.type === 'sources') {
-        messages[messages.length - 1] = { ...last, sources: event.sources }
+        messages[idx] = { ...messages[idx], sources: event.sources }
       }
 
       if (event.type === 'token') {
-        messages[messages.length - 1] = {
-          ...last,
-          content: last.content + event.token,
+        messages[idx] = {
+          ...messages[idx],
+          content: (messages[idx].content || '') + event.token,
         }
       }
 
@@ -62,6 +64,8 @@ export const useChatStore = create((set, get) => ({
 
     if (!trimmed || status === 'streaming') return
 
+    const history = buildHistoryFromMessages(get().messages)
+
     const userMessage = { role: 'user', content: trimmed, sources: [] }
     const assistantMessage = { role: 'assistant', content: '', sources: [] }
 
@@ -76,6 +80,7 @@ export const useChatStore = create((set, get) => ({
     try {
       await askCopilot({
         question: trimmed,
+        history,
         signal: controller.signal,
         onEvent: applyStreamEvent,
       })

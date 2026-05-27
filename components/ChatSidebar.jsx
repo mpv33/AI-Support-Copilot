@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { sidebarCopy, sidebarExamples } from '../data/chatGuide'
+import { sidebarCopy, sidebarExamples, supportAssistant } from '../data/chatGuide'
 import { useChatStore } from '../stores/chatStore'
 import ThemeToggle from './ThemeToggle'
 
@@ -22,11 +22,11 @@ export default function ChatSidebar({ onNavigate }) {
           className="flex min-w-0 items-center gap-2 no-underline"
           onClick={onNavigate}
         >
-          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-brand text-xs font-bold text-white">
-            AI
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand text-xs font-semibold text-white">
+            {supportAssistant.name[0]}
           </span>
           <span className="truncate text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-            Support Copilot
+            {supportAssistant.name} · Support
           </span>
         </Link>
         <ThemeToggle />

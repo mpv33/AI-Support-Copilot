@@ -4,7 +4,9 @@ import { estimateContextUsage } from '../../../lib/llm'
 import { CHAT_MODEL, assertOpenAiKey, getOpenAI } from '../../../lib/openai'
 import {
   buildReActSystemPrompt,
+  buildRetrievalQuery,
   buildSupportPrompt,
+  normalizeChatHistory,
   publicSources,
   shouldAnswerFromRetrieval,
 } from '../../../lib/prompt'
@@ -20,11 +22,15 @@ export async function POST(req) {
 
   const startedAt = performance.now()
   const traceId = crypto.randomUUID()
-  const { question, tenantId = 'acme', retrievalMode = 'hybrid' } = await req.json()
+  const { question, tenantId = 'interviewpro', retrievalMode = 'hybrid', history = [] } =
+    await req.json()
 
   if (!question || typeof question !== 'string') {
     return Response.json({ error: 'question is required' }, { status: 400 })
   }
+
+  const chatHistory = normalizeChatHistory(history)
+  const retrievalQuery = buildRetrievalQuery(question, chatHistory)
 
   const agent = createAgentRun({ question, traceId })
 
@@ -41,7 +47,7 @@ export async function POST(req) {
   }
 
   const retrieval = await measure('retrieval', () =>
-    retrieveSupportChunks({ question, tenantId, k: 5, mode: retrievalMode }),
+    retrieveSupportChunks({ question: retrievalQuery, tenantId, k: 5, mode: retrievalMode }),
   )
 
   if (!retrieval.ok) {
@@ -69,17 +75,20 @@ export async function POST(req) {
   }
 
   const systemPrompt = buildReActSystemPrompt()
-  const userPrompt = buildSupportPrompt({ question, chunks, style: 'cot' })
+  const userPrompt = buildSupportPrompt({
+    question,
+    chunks,
+    style: 'cot',
+    hasHistory: chatHistory.length > 0,
+  })
   const contextUsage = estimateContextUsage({
     system: systemPrompt,
     user: userPrompt,
     chunks,
+    history: chatHistory,
   })
 
-  let messages = [
-    { role: 'system', content: systemPrompt },
-    { role: 'user', content: userPrompt },
-  ]
+  let messages = [{ role: 'system', content: systemPrompt }, ...chatHistory, { role: 'user', content: userPrompt }]
 
   const planning = await openai.chat.completions.create({
     model: CHAT_MODEL,
@@ -137,7 +146,7 @@ export async function POST(req) {
         const response = await openai.chat.completions.create({
           model: CHAT_MODEL,
           messages,
-          temperature: 0.2,
+          temperature: 0.35,
           stream: true,
         })
 
