@@ -17,8 +17,7 @@ export const appNav = [
 export const landingOverview = {
   hero: {
     eyebrow: 'RAG-powered AI support',
-    title: 'Get answers from',
-    titleAccent: 'real help articles',
+    title: 'AI Support Copilot',
     tagline:
       'Search the Help Center before every reply — accurate, cited answers about InterviewPro.info tracks, tools, and your account.',
     ctaPrimary: 'Start chatting',

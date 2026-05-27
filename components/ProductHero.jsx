@@ -22,11 +22,9 @@ export default function ProductHero() {
             {hero.eyebrow}
           </p>
 
-          <h1 className="mt-6 text-4xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl sm:leading-[1.12] lg:text-[3.35rem]">
-            {hero.title}
-            <br />
-            <span className="bg-gradient-to-r from-brand to-emerald-600 bg-clip-text text-transparent">
-              {hero.titleAccent}
+          <h1 className="mt-6 text-4xl font-semibold tracking-tight sm:text-5xl sm:leading-[1.12] lg:text-[3.35rem]">
+            <span className="bg-gradient-to-r from-zinc-900 via-zinc-800 to-brand bg-clip-text text-transparent dark:from-zinc-50 dark:via-zinc-100 dark:to-emerald-400">
+              {hero.title}
             </span>
           </h1>
 
