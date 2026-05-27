@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { interviewProBrand, landingOverview } from '../data/siteConfig'
+import { landingOverview } from '../data/siteConfig'
 import LandingChatPreview from './LandingChatPreview'
 
 const { hero } = landingOverview
@@ -32,18 +32,17 @@ export default function ProductHero() {
             {hero.tagline}
           </p>
 
-          <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-zinc-500">
-            Built for{' '}
+          <p className="mt-4 text-sm text-zinc-500">
+            For now, built for{' '}
             <a
               href="https://www.interviewpro.info/"
-              className="font-medium text-zinc-700 underline decoration-zinc-300 underline-offset-2 transition hover:text-brand dark:text-zinc-300 dark:decoration-zinc-600"
+              className="font-medium text-zinc-600 underline decoration-zinc-300 underline-offset-2 transition hover:text-brand dark:text-zinc-400 dark:decoration-zinc-600"
               target="_blank"
               rel="noopener noreferrer"
             >
-              {interviewProBrand.name}
-            </a>
-            <span className="mx-2 text-zinc-300">·</span>
-            <span className="text-zinc-400">{hero.subline}</span>
+              InterviewPro.info
+            </a>{' '}
+            platform support.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">

@@ -19,9 +19,7 @@ export const landingOverview = {
     eyebrow: 'RAG-powered AI support',
     title: 'AI Support Copilot',
     tagline:
-      'A RAG-powered help desk that retrieves real Help Center articles before every reply — grounded answers with source citations, live streaming, and clear refusals when confidence is low.',
-    subline:
-      'Frontend, DSA, machine coding, Gen AI, ResumePro, EvalPro, billing, and account support.',
+      'A RAG-powered AI support chat system for any product — index your help documentation, answer with cited sources, stream replies live, and refuse when docs do not match.',
     ctaPrimary: 'Start chatting',
     ctaSecondary: 'Browse Help Center',
     ctaSecondaryHref: '/support',
