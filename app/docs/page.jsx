@@ -1,16 +1,16 @@
-import GenAiDocs from '../../components/GenAiDocs'
+import ProductDocs from '../../components/ProductDocs'
 import PageShell from '../../components/PageShell'
 
 export const metadata = {
-  title: 'Technical guide | AI Support Copilot',
+  title: 'Product guide | AI Support Copilot',
   description:
-    'Architecture, RAG pipeline, API routes, and code map for the InterviewPro.info AI support copilot.',
+    'Upload any file and chat with AI Support Copilot — grounded RAG answers with source citations.',
 }
 
 export default function DocsPage() {
   return (
     <PageShell wide>
-      <GenAiDocs />
+      <ProductDocs />
     </PageShell>
   )
 }

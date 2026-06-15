@@ -1,18 +1,29 @@
 {
   "name": "ai-support-copilot",
-  "version": "1.0.0",
+  "version": "1.5.0",
+  "description": "Upload any file and chat with AI Support Copilot — ChatGPT-style chat grounded in your documents with cited answers.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mpv33/AI-Support-Copilot.git"
+  },
+  "homepage": "https://github.com/mpv33/AI-Support-Copilot#readme",
+  "bugs": {
+    "url": "https://github.com/mpv33/AI-Support-Copilot/issues"
+  },
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "next dev -p 3010",
     "build": "next build",
     "start": "next start -p 3010",
-    "lint": "eslint .",
-    "eval": "node scripts/run-eval.mjs"
+    "lint": "eslint ."
   },
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
     "next": "16.2.6",
     "openai": "^4.104.0",
+    "pdf-parse": "^1.1.1",
     "react": "19.2.6",
     "react-dom": "19.2.6",
     "react-markdown": "^10.1.0",

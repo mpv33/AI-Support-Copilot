@@ -1,14 +1,10 @@
-import LandingOverview from '../components/LandingOverview'
+import LandingPage from '../components/landing/LandingPage'
 import PageShell from '../components/PageShell'
-import ProductCTA from '../components/ProductCTA'
-import ProductHero from '../components/ProductHero'
 
 export default function HomePage() {
   return (
     <PageShell landing>
-      <ProductHero />
-      <LandingOverview />
-      <ProductCTA />
+      <LandingPage />
     </PageShell>
   )
 }

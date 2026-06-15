@@ -1,19 +1,31 @@
+import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 import ThemeProvider from '../components/ThemeProvider'
-import { themeInitScript } from '../lib/theme'
+import VersionBanner from '../components/VersionBanner'
+import { platformConfig } from '../platform/config.js'
+import { themeInitScript } from '../lib/core/theme'
 
 export const metadata = {
-  title: 'AI Support Copilot | InterviewPro.info',
-  description:
-    'RAG-powered AI support for InterviewPro.info — grounded answers from Help Center articles with source citations.',
+  title: `${platformConfig.brand.name} | ${platformConfig.brand.tagline}`,
+  description: platformConfig.brand.description,
+}
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
 }
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="font-sans">
+      <body className="flex min-h-dvh flex-col font-sans">
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
-        <ThemeProvider>{children}</ThemeProvider>
+        <VersionBanner />
+        <ThemeProvider>
+          <div className="flex min-h-0 flex-1 flex-col">{children}</div>
+        </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   )

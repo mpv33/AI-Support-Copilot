@@ -40,7 +40,3 @@ Thumbs.db
 !.vscode/extensions.json
 *.swp
 *.swo
-
-# Misc
-*.pem
-*.log

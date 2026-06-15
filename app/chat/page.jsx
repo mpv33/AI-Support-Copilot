@@ -1,15 +1,16 @@
 import ChatLayout from '../../components/ChatLayout'
-import SupportCopilot from '../../components/SupportCopilot'
+import DemoCopilot from '../../components/DemoCopilot'
 
 export const metadata = {
-  title: 'Chat | InterviewPro.info Help Desk',
-  description: 'InterviewPro.info help desk with grounded answers from help articles.',
+  title: 'Chat | AI Support Copilot',
+  description:
+    'Upload any file and chat with AI Support Copilot — like ChatGPT, grounded in your documents with source citations.',
 }
 
 export default function ChatPage() {
   return (
     <ChatLayout>
-      <SupportCopilot />
+      <DemoCopilot />
     </ChatLayout>
   )
 }

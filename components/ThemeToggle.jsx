@@ -1,7 +1,7 @@
 'use client'
 
 import { useLayoutEffect, useState } from 'react'
-import { applyTheme, getStoredTheme, isDarkMode } from '../lib/theme'
+import { applyTheme, getStoredTheme, isDarkMode } from '../lib/core/theme'
 
 export default function ThemeToggle({ className = '' }) {
   const [isDark, setIsDark] = useState(false)

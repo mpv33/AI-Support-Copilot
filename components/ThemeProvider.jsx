@@ -1,7 +1,7 @@
 'use client'
 
 import { useLayoutEffect } from 'react'
-import { applyTheme, getStoredTheme, THEME_STORAGE_KEY } from '../lib/theme'
+import { applyTheme, getStoredTheme, THEME_STORAGE_KEY } from '../lib/core/theme'
 
 export default function ThemeProvider({ children }) {
   useLayoutEffect(() => {
