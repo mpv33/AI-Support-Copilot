@@ -30,8 +30,9 @@ coverage/
 # Vercel
 .vercel
 
-# OS
-.DS_Store
+# Runtime data
+data/guest-usage/
+
 Thumbs.db
 
 # Editors

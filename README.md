@@ -37,7 +37,8 @@ Open **http://localhost:3010**
 - **Next.js** — landing, chat UI, usage dashboard, and API routes
 - **`POST /api/chat`** — SSE streaming; embeddings + chat via OpenAI
 - **`POST /api/demo/parse`** — stateless PDF text extraction
-- **Browser storage** — documents (`sessionStorage`), token budget (`localStorage`), usage (`IndexedDB`)
+- **Browser storage** — documents (`sessionStorage`), usage dashboard (`IndexedDB`)
+- **Server token budget** — 100K trial enforced per device/network (`data/guest-usage/`)
 
 ## Deploy
 

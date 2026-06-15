@@ -4,8 +4,8 @@ import { getDemoDocumentsForChat, listDemoDocumentsForUi } from '../lib/demo/dem
 import { buildHistoryFromMessages, getStarterMessages } from '../lib/chat/chatHistory'
 import {
   applyDemoTokenUsageFromServer,
+  fetchDemoGuestBudgetFromServer,
   getDemoGuestBudgetSnapshot,
-  isDemoGuestBudgetExceeded,
 } from '../lib/demo/demoTokenBudget.js'
 import { DEMO_TOKEN_LIMIT_MESSAGE } from '../lib/demo/demoTokenLimit.js'
 import { recordClientUsage } from '../lib/core/clientUsageStore.js'
@@ -45,9 +45,16 @@ export const useChatStore = create((set, get) => ({
       demoUploadError: '',
       demoTokenBudget: getDemoGuestBudgetSnapshot(),
     })
+    void fetchDemoGuestBudgetFromServer()
+      .then((budget) => set({ demoTokenBudget: budget }))
+      .catch(() => {})
   },
 
-  refreshDemoTokenBudget: () => set({ demoTokenBudget: getDemoGuestBudgetSnapshot() }),
+  refreshDemoTokenBudget: () => {
+    void fetchDemoGuestBudgetFromServer()
+      .then((budget) => set({ demoTokenBudget: budget }))
+      .catch(() => set({ demoTokenBudget: getDemoGuestBudgetSnapshot() }))
+  },
 
   setDemoUploads: (demoUploads) => set({ demoUploads }),
   setDemoUploadStatus: (demoUploadStatus) => set({ demoUploadStatus }),
@@ -125,7 +132,8 @@ export const useChatStore = create((set, get) => ({
 
     if (!trimmed || status === 'streaming') return
 
-    if (isDemoGuestBudgetExceeded()) {
+    const budget = get().demoTokenBudget
+    if (budget?.exceeded) {
       setError(DEMO_TOKEN_LIMIT_MESSAGE)
       setStatus('error')
       return
@@ -150,7 +158,6 @@ export const useChatStore = create((set, get) => ({
         history,
         model: chatModel,
         demoDocuments: getDemoDocumentsForChat(),
-        demoTokenUsage: getDemoGuestBudgetSnapshot().used,
         signal: controller.signal,
         onEvent: applyStreamEvent,
       })

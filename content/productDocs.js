@@ -23,7 +23,7 @@ export const productDocs = {
     highlights: [
       'Chat at /chat — upload a file, ask anything, get cited answers.',
       'Supports PDF, text, Markdown, JSON, CSV, and HTML.',
-      '100K token free-trial budget per browser (localStorage).',
+      '100K token free-trial budget (enforced server-side per device/network).',
       'Files in sessionStorage; usage history in IndexedDB at /usage.',
     ],
   },
@@ -44,11 +44,11 @@ export const productDocs = {
       { step: 'Open /chat', detail: 'No account required.' },
       { step: 'Upload any file', detail: 'Text/JSON/MD parse in-browser; PDF uses POST /api/demo/parse (stateless, not stored).' },
       { step: 'Ask anything', detail: 'Suggested prompts come from your file title and headings.' },
-      { step: 'Watch your token budget', detail: 'Sidebar meter tracks usage in localStorage (100K max per browser).' },
+      { step: 'Watch your token budget', detail: 'Sidebar meter tracks usage (100K max — enforced on the server, not reset by clearing browser data).' },
     ],
     limits: [
       '5 files per session · 5 MB each · PDF, text, MD, JSON, CSV, HTML',
-      '100K OpenAI tokens per browser (localStorage)',
+      '100K OpenAI tokens per device/network (server-enforced)',
       'Documents in sessionStorage — not saved to any database',
     ],
   },
@@ -57,7 +57,7 @@ export const productDocs = {
     intro:
       'The usage dashboard reads from IndexedDB in your browser. Each chat session records input/output tokens and estimated USD/INR cost using published model rates.',
     points: [
-      'Nothing is sent to a user database — clear site data to reset.',
+      'Token budget is tracked server-side — clearing browser data does not reset it.',
       'Filter by 7, 30, or 90 days.',
       'Breakdown by endpoint and model; daily series for the last 14 days.',
     ],
@@ -69,7 +69,7 @@ export const productDocs = {
       {
         method: 'POST',
         path: '/api/chat',
-        detail: 'Streams chat via SSE. Receives your question, uploaded file chunks, and token budget from the browser. Calls OpenAI for embeddings + chat.',
+        detail: 'Streams chat via SSE. Receives your question and uploaded file chunks. Enforces 100K token budget server-side (cookie + IP). Calls OpenAI for embeddings + chat.',
       },
       {
         method: 'POST',
@@ -100,7 +100,7 @@ export const productDocs = {
     },
     {
       question: 'What happens when I hit the token limit?',
-      answer: 'Chat is disabled in that browser after 100K tokens. Clear localStorage or use a new browser profile to reset.',
+      answer: 'Chat is disabled after 100K tokens. The limit is enforced on the server (tied to your device cookie and network), so clearing browser data will not reset it.',
     },
     {
       question: 'Can the AI hallucinate?',
@@ -115,7 +115,7 @@ export const productDocs = {
       { step: 'Chunk & embed', detail: 'Your file is split into paragraph chunks; embedded with text-embedding-3-small per request.' },
       { step: 'Hybrid retrieve', detail: 'Vector similarity (60%) + BM25 keywords (40%), then optional reranking.' },
       { step: 'Guardrail & generate', detail: 'Low-confidence matches refused. Matched chunks ground gpt-4o-mini with streaming SSE.' },
-      { step: 'Local observability', detail: 'Token budget in localStorage; usage entries in IndexedDB; no server-side user DB.' },
+      { step: 'Local observability', detail: 'Token budget enforced server-side; detailed usage entries in IndexedDB; no user accounts.' },
     ],
   },
 }

@@ -89,12 +89,12 @@ export default function UsageDashboard() {
     setLoading(true)
     setError('')
     try {
-      const [{ getClientUsageDashboard }, { getDemoGuestBudgetSnapshot }] = await Promise.all([
+      const [{ getClientUsageDashboard }, { fetchDemoGuestBudgetFromServer }] = await Promise.all([
         import('../lib/core/clientUsageStore.js'),
         import('../lib/demo/demoTokenBudget.js'),
       ])
       setData(await getClientUsageDashboard({ days }))
-      setTokenBudget(getDemoGuestBudgetSnapshot())
+      setTokenBudget(await fetchDemoGuestBudgetFromServer())
     } catch (err) {
       setError(err.message)
     } finally {
@@ -193,7 +193,7 @@ export default function UsageDashboard() {
             </div>
             <p className="text-xs text-zinc-500 dark:text-zinc-400">
               {tokenBudget.exceeded
-                ? 'Limit reached — clear site data to reset'
+                ? 'Limit reached for this device / network'
                 : `${formatCompactTokenCount(tokenBudget.remaining)} remaining`}
             </p>
           </div>
